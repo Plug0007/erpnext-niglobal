@@ -177,50 +177,6 @@ flowchart TB
     M1 --> M4["View"]
     M2 --> M5["View / Export"]
     M3 --> M6["Approve"]
-    ```
----
-
-# 3. Clients & Vendors
-
-## Definition
-
-The **Clients & Vendors** module manages external organizations connected to the manpower business.
-
-- **Client:** Overseas organization requesting manpower.
-- **Vendor:** External organization providing recruitment, medical, travel, documentation, insurance, or other services.
-
-## Mermaid
-
-```mermaid
-flowchart TD
-    %% =========================================================
-    %% CLIENTS AND VENDORS
-    %% External business parties.
-    %% =========================================================
-
-    A[Clients & Vendors]
-
-    %% Client side
-    A --> B[Clients]
-    B --> B1[Customer Master]
-
-    B1 --> B2[Client Contact]
-    B1 --> B3[Client Address]
-    B1 --> B4[Client Type]
-    B1 --> B5[Country]
-
-    %% Vendor side
-    A --> C[Vendors]
-    C --> C1[Supplier Master]
-
-    C1 --> C2[Vendor Contact]
-    C1 --> C3[Vendor Address]
-    C1 --> C4[Vendor Type]
-    C1 --> C5[Country]
-
-    %% Contracts are created from these parties.
-    B1 --> D[Client Contract]
-    C1 --> E[Vendor Contract]
 ```
 
 ---
