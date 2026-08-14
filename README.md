@@ -181,7 +181,7 @@ flowchart TB
 
 ---
 
-# 4. Client Contract
+# 3. Client Contract
 
 ## Definition
 
@@ -227,7 +227,7 @@ flowchart TD
 
 ---
 
-# 5. JDR — Job Demand Request
+# 4. JDR — Job Demand Request
 
 ## Definition
 
@@ -290,111 +290,65 @@ flowchart TD
 
 ---
 
-# 6. Recruitment
+5. Overseas Recruitment
+Definition
 
-## Definition
-
-The **Recruitment** module converts an approved JDR into job openings, candidates, screening, interviews, selection, offers, and eventually employees.
+The Overseas Recruitment module manages the process of selecting candidates for overseas client requirements, from sourcing and screening to client approval, documentation, medical/visa processing, and deployment readiness.
 
 ## Mermaid
 
 ```mermaid
 flowchart TD
     %% =========================================================
-    %% RECRUITMENT
-    %% Candidate lifecycle from JDR to Employee.
+    %% OVERSEAS RECRUITMENT
+    %% Candidate lifecycle for overseas manpower recruitment.
     %% =========================================================
 
-    A[JDR] --> B[Job Opening]
-    B --> C[Candidates]
+    A["Approved JDR"]
+        --> B["Candidate Sourcing"]
 
-    %% Candidate evaluation.
-    C --> D[Screening]
-    D --> E[Interview]
-    E --> F[Selection]
+    %% Basic candidate eligibility check.
+    B --> C["Screening"]
 
-    %% Selection decision.
-    F --> G{Selected?}
+    %% Verify required candidate documents.
+    C --> D["Document Verification"]
 
-    G -->|No| H[Rejected / Hold]
-    G -->|Yes| I[Job Offer]
+    %% Interview and technical/trade assessment.
+    D --> E["Interview / Trade Test"]
 
-    %% Offer decision.
-    I --> J{Offer Accepted?}
+    %% Client reviews shortlisted candidates.
+    E --> F["Client Selection"]
 
-    J -->|No| K[Offer Rejected]
-    J -->|Yes| L[Employee Creation]
+    %% Selected candidate receives employment terms.
+    F --> G["Offer & Contract"]
 
-    %% Candidate data.
-    C --> C1[Candidate Profile]
-    C --> C2[Experience]
-    C --> C3[Qualification]
-    C --> C4[Skills]
-    C --> C5[Passport Details]
+    %% Overseas compliance checks.
+    G --> H["Medical & Compliance"]
+
+    %% Visa / work authorization process.
+    H --> I["Visa Processing"]
+
+    %% Candidate is prepared for overseas movement.
+    I --> J["Deployment Ready"]
 
     %% Successful candidate becomes an employee.
-    L --> M[Employee Master]
+    J --> K["Employee Master"]
+
+    %% Employee moves to deployment.
+    K --> L["Deployment"]
+
+    %% Recruitment can end at different points.
+    C -.-> X["Rejected / Hold"]
+    D -.-> X
+    E -.-> X
+    F -.-> X
+    H -.-> X
+    I -.-> X
 ```
 
 ---
 
-# 7. Employee Master
-
-## Definition
-
-The **Employee Master** is the central HR record for a worker after recruitment/selection.
-
-It should hold core employee information while linking specialized records such as Passport, Iqama, Visa, Contract, and Deployment.
-
-## Mermaid
-
-```mermaid
-flowchart TD
-    %% =========================================================
-    %% EMPLOYEE MASTER
-    %% Central employee record.
-    %% =========================================================
-
-    A[Selected Candidate] --> B[Employee Master]
-
-    %% Personal information.
-    B --> C[Personal Information]
-    C --> C1[Name]
-    C --> C2[Date of Birth]
-    C --> C3[Nationality]
-    C --> C4[Contact]
-    C --> C5[Address]
-
-    %% Internal employment information.
-    B --> D[Employment Information]
-    D --> D1[Employee ID]
-    D --> D2[Department]
-    D --> D3[Designation]
-    D --> D4[Joining Date]
-    D --> D5[Employment Type]
-
-    %% Overseas assignment information.
-    B --> E[Overseas Information]
-    E --> E1[Country]
-    E --> E2[Client]
-    E --> E3[Deployment Status]
-    E --> E4[Current Location]
-
-    %% Related employee records.
-    B --> F[Documents]
-    F --> F1[Passport]
-    F --> F2[Iqama]
-    F --> F3[Visa]
-    F --> F4[Medical]
-    F --> F5[Insurance]
-
-    B --> G[Contracts]
-    B --> H[Deployment]
-```
-
----
-
-# 8. Employee Documents
+# 6. Employee Documents
 
 ## Definition
 
@@ -446,7 +400,7 @@ flowchart TD
 
 ---
 
-# 9. Passport
+# 7. Passport
 
 ## Definition
 
@@ -491,8 +445,54 @@ flowchart TD
 ```
 
 ---
+# 8. Visa
 
-# 10. Iqama
+## Definition
+
+The **Visa** module tracks visa details, supporting documents, processing stages, approval/rejection, and expiry.
+
+## Mermaid
+
+```mermaid
+flowchart TD
+    %% =========================================================
+    %% VISA
+    %% Immigration/visa processing lifecycle.
+    %% =========================================================
+
+    A[Employee] --> B[Visa]
+
+    %% Visa identity and validity.
+    B --> C[Visa Details]
+    C --> C1[Visa Number]
+    C --> C2[Visa Type]
+    C --> C3[Country]
+    C --> C4[Issue Date]
+    C --> C5[Expiry Date]
+
+    %% Supporting files.
+    B --> D[Documents]
+    D --> D1[Passport]
+    D --> D2[Employment Contract]
+    D --> D3[Medical]
+    D --> D4[Other Supporting Documents]
+
+    %% Processing workflow.
+    B --> E[Processing]
+    E --> E1[Application]
+    E --> E2[Submitted]
+    E --> E3[Processing]
+    E --> E4[Approved]
+    E --> E5[Rejected]
+
+    %% Expiry action.
+    B --> F[Expiry]
+    F --> F1[Expiry Alert]
+    F1 --> F2[Renewal / Action]
+```
+
+---
+# 9. Iqama
 
 ## Definition
 
@@ -574,58 +574,9 @@ flowchart TD
     %% New record/version becomes active.
     F7 --> B
 ```
-
 ---
 
-# 11. Visa
-
-## Definition
-
-The **Visa** module tracks visa details, supporting documents, processing stages, approval/rejection, and expiry.
-
-## Mermaid
-
-```mermaid
-flowchart TD
-    %% =========================================================
-    %% VISA
-    %% Immigration/visa processing lifecycle.
-    %% =========================================================
-
-    A[Employee] --> B[Visa]
-
-    %% Visa identity and validity.
-    B --> C[Visa Details]
-    C --> C1[Visa Number]
-    C --> C2[Visa Type]
-    C --> C3[Country]
-    C --> C4[Issue Date]
-    C --> C5[Expiry Date]
-
-    %% Supporting files.
-    B --> D[Documents]
-    D --> D1[Passport]
-    D --> D2[Employment Contract]
-    D --> D3[Medical]
-    D --> D4[Other Supporting Documents]
-
-    %% Processing workflow.
-    B --> E[Processing]
-    E --> E1[Application]
-    E --> E2[Submitted]
-    E --> E3[Processing]
-    E --> E4[Approved]
-    E --> E5[Rejected]
-
-    %% Expiry action.
-    B --> F[Expiry]
-    F --> F1[Expiry Alert]
-    F1 --> F2[Renewal / Action]
-```
-
----
-
-# 12. Employee Contract
+# 10. Employee Contract
 
 ## Definition
 
@@ -673,7 +624,62 @@ flowchart TD
 
 ---
 
-# 13. Deployment
+# 11. Employee Master
+
+## Definition
+
+The **Employee Master** is the central HR record for a worker after recruitment/selection.
+
+It should hold core employee information while linking specialized records such as Passport, Iqama, Visa, Contract, and Deployment.
+
+## Mermaid
+
+```mermaid
+flowchart TD
+    %% =========================================================
+    %% EMPLOYEE MASTER
+    %% Central employee record.
+    %% =========================================================
+
+    A[Selected Candidate] --> B[Employee Master]
+
+    %% Personal information.
+    B --> C[Personal Information]
+    C --> C1[Name]
+    C --> C2[Date of Birth]
+    C --> C3[Nationality]
+    C --> C4[Contact]
+    C --> C5[Address]
+
+    %% Internal employment information.
+    B --> D[Employment Information]
+    D --> D1[Employee ID]
+    D --> D2[Department]
+    D --> D3[Designation]
+    D --> D4[Joining Date]
+    D --> D5[Employment Type]
+
+    %% Overseas assignment information.
+    B --> E[Overseas Information]
+    E --> E1[Country]
+    E --> E2[Client]
+    E --> E3[Deployment Status]
+    E --> E4[Current Location]
+
+    %% Related employee records.
+    B --> F[Documents]
+    F --> F1[Passport]
+    F --> F2[Iqama]
+    F --> F3[Visa]
+    F --> F4[Medical]
+    F --> F5[Insurance]
+
+    B --> G[Contracts]
+    B --> H[Deployment]
+```
+
+
+# 12. Deployment
 
 ## Definition
 
@@ -724,7 +730,7 @@ flowchart TD
 
 ---
 
-# 14. Timesheet / Operations
+# 13. Timesheet / Operations
 
 ## Definition
 
@@ -763,7 +769,7 @@ flowchart TD
 
 ---
 
-# 15. Employee Cost
+# 14. Employee Cost
 
 ## Definition
 
@@ -806,7 +812,7 @@ flowchart TD
 
 ---
 
-# 16. Vendor Cost
+# 15. Vendor Cost
 
 ## Definition
 
@@ -849,7 +855,7 @@ flowchart TD
 
 ---
 
-# 17. Client Billing
+# 16. Client Billing
 
 ## Definition
 
@@ -888,7 +894,7 @@ flowchart TD
 
 ---
 
-# 18. Margin Reporting
+# 17. Margin Reporting
 
 ## Definition
 
@@ -933,7 +939,7 @@ flowchart TD
 
 ---
 
-# 19. Expiry Management
+# 18. Expiry Management
 
 ## Definition
 
@@ -984,7 +990,7 @@ flowchart TD
 
 ---
 
-# 20. Management Dashboard
+# 19. Management Dashboard
 
 ## Definition
 
@@ -1046,7 +1052,7 @@ flowchart TD
 
 ---
 
-# 21. Complete System Architecture
+# 20. Complete System Architecture
 
 ## Definition
 
@@ -1135,7 +1141,7 @@ flowchart TD
 
 ---
 
-# 22. Recommended Implementation Order
+# 21. Recommended Implementation Order
 
 ## Definition
 
@@ -1171,7 +1177,7 @@ flowchart LR
 
 ---
 
-# 23. Core Business Flow
+# 22. Core Business Flow
 
 ## Definition
 
@@ -1208,7 +1214,7 @@ flowchart TD
 
 ---
 
-# 24. Key Data Relationships
+# 23. Key Data Relationships
 
 ## Definition
 
@@ -1270,7 +1276,7 @@ flowchart TD
 
 ---
 
-# 25. Design Rules
+# 24. Design Rules
 
 The following rules should be followed during implementation:
 
@@ -1290,7 +1296,7 @@ The following rules should be followed during implementation:
 
 ---
 
-# 26. Final Dependency Chain
+# 25. Final Dependency Chain
 
 ```mermaid
 flowchart LR
