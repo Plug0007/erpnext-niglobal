@@ -80,48 +80,104 @@ Permissions should follow actual responsibilities instead of giving everyone Adm
 
 ## Mermaid
 
-```mermaid
-flowchart TD
+flowchart TB
     %% =========================================================
-    %% USERS AND ROLES
-    %% Controls access and responsibility.
+    %% USERS & ROLES
+    %% Role-centric access architecture
     %% =========================================================
 
-    A[Users & Roles] --> B[Users]
-    A --> C[Roles]
-    A --> D[Permissions]
+    A["USER ACCESS"] --> B["BUSINESS ROLES"]
 
-    %% Example users
-    B --> B1[Recruiter]
-    B --> B2[HR Officer]
-    B --> B3[Document Controller]
-    B --> B4[Deployment Officer]
-    B --> B5[Finance User]
-    B --> B6[Management]
+    %% ---------------------------------------------------------
+    %% RECRUITMENT
+    %% ---------------------------------------------------------
+    B --> R["RECRUITMENT"]
 
-    %% Business roles
-    C --> C1[Recruitment Manager]
-    C --> C2[HR Manager]
-    C --> C3[Operations Manager]
-    C --> C4[Finance Manager]
-    C --> C5[Management]
+    R --> R1["JDR"]
+    R --> R2["Candidates"]
+    R --> R3["Interviews"]
+    R --> R4["Job Offers"]
 
-    %% User-to-role mapping
-    B1 --> C1
-    B2 --> C2
-    B3 --> C2
-    B4 --> C3
-    B5 --> C4
-    B6 --> C5
+    R1 --> R5["Create / Edit / Submit"]
+    R2 --> R6["Create / Edit"]
+    R3 --> R7["Manage"]
+    R4 --> R8["Create / Submit"]
 
-    %% Role-specific permissions
-    C1 --> D1[JDR Permissions]
-    C2 --> D2[Employee Permissions]
-    C3 --> D3[Deployment Permissions]
-    C4 --> D4[Financial Permissions]
-    C5 --> D5[Reporting Access]
-```
+    %% ---------------------------------------------------------
+    %% HR
+    %% ---------------------------------------------------------
+    B --> H["HR"]
 
+    H --> H1["Employees"]
+    H --> H2["Contracts"]
+    H --> H3["Attendance"]
+    H --> H4["Leave"]
+
+    H1 --> H5["Create / Edit"]
+    H2 --> H6["Manage"]
+    H3 --> H7["Manage"]
+    H4 --> H8["Manage"]
+
+    %% ---------------------------------------------------------
+    %% DOCUMENTATION
+    %% ---------------------------------------------------------
+    B --> D["DOCUMENTATION"]
+
+    D --> D1["Passport"]
+    D --> D2["Iqama"]
+    D --> D3["Visa"]
+    D --> D4["Medical"]
+    D --> D5["Insurance"]
+
+    D1 --> D6["Upload / Verify"]
+    D2 --> D7["Process / Renew"]
+    D3 --> D8["Process / Track"]
+    D4 --> D9["Verify"]
+    D5 --> D10["Track"]
+
+    %% ---------------------------------------------------------
+    %% OPERATIONS
+    %% ---------------------------------------------------------
+    B --> O["OPERATIONS"]
+
+    O --> O1["Deployment"]
+    O --> O2["Client Sites"]
+    O --> O3["Travel"]
+    O --> O4["Timesheets"]
+
+    O1 --> O5["Create / Update"]
+    O2 --> O6["Manage"]
+    O3 --> O7["Track"]
+    O4 --> O8["Manage"]
+
+    %% ---------------------------------------------------------
+    %% FINANCE
+    %% ---------------------------------------------------------
+    B --> F["FINANCE"]
+
+    F --> F1["Client Billing"]
+    F --> F2["Employee Cost"]
+    F --> F3["Vendor Cost"]
+    F --> F4["Margin"]
+
+    F1 --> F5["Create / Approve"]
+    F2 --> F6["Manage"]
+    F3 --> F7["Manage"]
+    F4 --> F8["View / Report"]
+
+    %% ---------------------------------------------------------
+    %% MANAGEMENT
+    %% ---------------------------------------------------------
+    B --> M["MANAGEMENT"]
+
+    M --> M1["Dashboard"]
+    M --> M2["Reports"]
+    M --> M3["Approvals"]
+
+    M1 --> M4["View"]
+    M2 --> M5["View / Export"]
+    M3 --> M6["Approve"]
+    ```
 ---
 
 # 3. Clients & Vendors
