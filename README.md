@@ -1,20 +1,30 @@
+# Overseas Manpower ERPNext — Uniform Mermaid Blueprint
 
+> **Format used for every module:** Definition → Simple Business Flow → Vertical Mermaid.
+>
+> The diagrams are intentionally simple and vertical. Decision points use explicit **Yes / No** branches wherever the process has a real condition.
+
+---
 
 # 1. Organization
 
 ## Definition
 
-The **Organization** module defines the company's internal structure. It establishes the Company, Branches, Departments, Designations, and Employment Types that other ERP records depend on.
+The **Organization** module defines the company's internal structure, including company, branches, departments, designations, and employment types.
 
-## Business purpose
+## Simple Business Flow
 
-Use this module to answer:
-
-- Which legal/company entity owns the operation?
-- Which branches exist?
-- Which departments exist?
-- Which designations are used?
-- What types of employment does the company support?
+```text
+Company
+ ↓
+Branches
+ ↓
+Departments
+ ↓
+Designations
+ ↓
+Employment Types
+```
 
 ## Mermaid
 
@@ -22,48 +32,35 @@ Use this module to answer:
 flowchart TD
     %% =========================================================
     %% ORGANIZATION
-    %% Foundation of the company's internal structure.
+    %% Company structure and HR foundation.
     %% =========================================================
 
-    A[Organization] --> B[Company]
+    A["Organization"]
+    A --> B["Company"]
+    B --> C["Branches"]
+    C --> C1["Mumbai Head Office"]
+    C --> C2["Saudi Operations"]
+    C --> C3["UAE Office"]
 
-    %% A company can have multiple operating branches.
-    B --> C[Branches]
+    B --> D["Departments"]
+    D --> D1["Management"]
+    D --> D2["HR"]
+    D --> D3["Recruitment"]
+    D --> D4["Operations"]
+    D --> D5["Finance"]
+    D --> D6["Documentation"]
 
-    %% Departments define functional business areas.
-    B --> D[Departments]
+    B --> E["Designations"]
+    E --> E1["HR Manager"]
+    E --> E2["Recruiter"]
+    E --> E3["Operations Manager"]
+    E --> E4["Document Controller"]
 
-    %% Designations define job positions within the organization.
-    B --> E[Designations]
-
-    %% Employment types define how employees are engaged.
-    B --> F[Employment Types]
-
-    %% Example branches
-    C --> C1[Mumbai Head Office]
-    C --> C2[Saudi Operations]
-    C --> C3[UAE Office]
-
-    %% Example departments
-    D --> D1[Management]
-    D --> D2[HR]
-    D --> D3[Recruitment]
-    D --> D4[Operations]
-    D --> D5[Finance]
-    D --> D6[Documentation]
-
-    %% Example designations
-    E --> E1[HR Manager]
-    E --> E2[Recruiter]
-    E --> E3[Operations Manager]
-    E --> E4[Document Controller]
-    E --> E5[Finance Manager]
-
-    %% Example employment types
-    F --> F1[Full Time]
-    F --> F2[Contract]
-    F --> F3[Temporary]
-    F --> F4[Overseas Contract]
+    B --> F["Employment Types"]
+    F --> F1["Full Time"]
+    F --> F2["Contract"]
+    F --> F3["Temporary"]
+    F --> F4["Overseas Contract"]
 ```
 
 ---
@@ -72,122 +69,130 @@ flowchart TD
 
 ## Definition
 
-The **Users & Roles** module controls who can access ERPNext and what each user is allowed to view, create, edit, submit, approve, cancel, or report on.
+The **Users & Roles** module controls who can access the ERP, which business area they can access, and what actions they can perform.
 
-## Business purpose
+## Simple Business Flow
 
-Permissions should follow actual responsibilities instead of giving everyone Administrator/System Manager access.
+```text
+User
+ ↓
+Role
+ ↓
+Module Access
+ ↓
+Permissions
+```
 
 ## Mermaid
+
 ```mermaid
-flowchart TB
+flowchart TD
     %% =========================================================
     %% USERS & ROLES
-    %% Role-centric access architecture
+    %% User access and responsibility.
     %% =========================================================
 
-    A["USER ACCESS"] --> B["BUSINESS ROLES"]
+    A["User Access"]
+    A --> B["Business Role"]
 
-    %% ---------------------------------------------------------
-    %% RECRUITMENT
-    %% ---------------------------------------------------------
-    B --> R["RECRUITMENT"]
+    B --> B1["Recruitment"]
+    B --> B2["HR"]
+    B --> B3["Documentation"]
+    B --> B4["Operations"]
+    B --> B5["Finance"]
+    B --> B6["Management"]
 
-    R --> R1["JDR"]
-    R --> R2["Candidates"]
-    R --> R3["Interviews"]
-    R --> R4["Job Offers"]
+    B1 --> C1["JDR / Candidates / Interviews"]
+    B2 --> C2["Employees / Contracts / HRMS"]
+    B3 --> C3["Passport / Iqama / Visa"]
+    B4 --> C4["Deployment / Sites / Timesheets"]
+    B5 --> C5["Billing / Costs / Margin"]
+    B6 --> C6["Dashboard / Reports"]
 
-    R1 --> R5["Create / Edit / Submit"]
-    R2 --> R6["Create / Edit"]
-    R3 --> R7["Manage"]
-    R4 --> R8["Create / Submit"]
+    C1 --> D["Permissions"]
+    C2 --> D
+    C3 --> D
+    C4 --> D
+    C5 --> D
+    C6 --> D
 
-    %% ---------------------------------------------------------
-    %% HR
-    %% ---------------------------------------------------------
-    B --> H["HR"]
-
-    H --> H1["Employees"]
-    H --> H2["Contracts"]
-    H --> H3["Attendance"]
-    H --> H4["Leave"]
-
-    H1 --> H5["Create / Edit"]
-    H2 --> H6["Manage"]
-    H3 --> H7["Manage"]
-    H4 --> H8["Manage"]
-
-    %% ---------------------------------------------------------
-    %% DOCUMENTATION
-    %% ---------------------------------------------------------
-    B --> D["DOCUMENTATION"]
-
-    D --> D1["Passport"]
-    D --> D2["Iqama"]
-    D --> D3["Visa"]
-    D --> D4["Medical"]
-    D --> D5["Insurance"]
-
-    D1 --> D6["Upload / Verify"]
-    D2 --> D7["Process / Renew"]
-    D3 --> D8["Process / Track"]
-    D4 --> D9["Verify"]
-    D5 --> D10["Track"]
-
-    %% ---------------------------------------------------------
-    %% OPERATIONS
-    %% ---------------------------------------------------------
-    B --> O["OPERATIONS"]
-
-    O --> O1["Deployment"]
-    O --> O2["Client Sites"]
-    O --> O3["Travel"]
-    O --> O4["Timesheets"]
-
-    O1 --> O5["Create / Update"]
-    O2 --> O6["Manage"]
-    O3 --> O7["Track"]
-    O4 --> O8["Manage"]
-
-    %% ---------------------------------------------------------
-    %% FINANCE
-    %% ---------------------------------------------------------
-    B --> F["FINANCE"]
-
-    F --> F1["Client Billing"]
-    F --> F2["Employee Cost"]
-    F --> F3["Vendor Cost"]
-    F --> F4["Margin"]
-
-    F1 --> F5["Create / Approve"]
-    F2 --> F6["Manage"]
-    F3 --> F7["Manage"]
-    F4 --> F8["View / Report"]
-
-    %% ---------------------------------------------------------
-    %% MANAGEMENT
-    %% ---------------------------------------------------------
-    B --> M["MANAGEMENT"]
-
-    M --> M1["Dashboard"]
-    M --> M2["Reports"]
-    M --> M3["Approvals"]
-
-    M1 --> M4["View"]
-    M2 --> M5["View / Export"]
-    M3 --> M6["Approve"]
+    D --> D1["View"]
+    D --> D2["Create"]
+    D --> D3["Edit"]
+    D --> D4["Submit"]
+    D --> D5["Approve"]
+    D --> D6["Report"]
 ```
 
 ---
 
-# 3. Client Contract
+# 3. Clients & Vendors
 
 ## Definition
 
-A **Client Contract** represents the commercial agreement between the manpower company and an overseas client.
+The **Clients & Vendors** module manages the external organizations involved in the overseas manpower business.
 
-It defines the terms under which manpower requirements, deployments, billing, and profitability are managed.
+## Simple Business Flow
+
+```text
+External Party
+ ↓
+Client / Vendor
+ ↓
+Master Details
+ ↓
+Contract / Cost
+```
+
+## Mermaid
+
+```mermaid
+flowchart TD
+    %% =========================================================
+    %% CLIENTS & VENDORS
+    %% External business parties.
+    %% =========================================================
+
+    A["External Party"]
+    A --> B{"Party Type"}
+
+    B -->|Client| C["Client Master"]
+    B -->|Vendor| D["Vendor Master"]
+
+    C --> C1["Contact"]
+    C --> C2["Address"]
+    C --> C3["Country"]
+    C --> C4["Client Type"]
+    C --> C5["Client Contract"]
+
+    D --> D1["Contact"]
+    D --> D2["Address"]
+    D --> D3["Country"]
+    D --> D4["Vendor Type"]
+    D --> D5["Vendor Cost"]
+```
+
+---
+
+# 4. Client Contract
+
+## Definition
+
+The **Client Contract** records the commercial agreement between the manpower company and an overseas client.
+
+## Simple Business Flow
+
+```text
+Client
+ ↓
+Contract
+ ↓
+Manpower Terms
+ ↓
+Commercial Terms
+ ↓
+JDR
+```
 
 ## Mermaid
 
@@ -195,105 +200,124 @@ It defines the terms under which manpower requirements, deployments, billing, an
 flowchart TD
     %% =========================================================
     %% CLIENT CONTRACT
-    %% Commercial relationship with the client.
+    %% Commercial agreement with overseas client.
     %% =========================================================
 
-    A[Client] --> B[Client Contract]
+    A["Client"]
+    A --> B["Client Contract"]
 
-    %% Contract identity and validity.
-    B --> C[Contract Details]
-    C --> C1[Contract Number]
-    C --> C2[Start Date]
-    C --> C3[End Date]
-    C --> C4[Country]
-    C --> C5[Location]
+    B --> C["Contract Details"]
+    C --> C1["Contract Number"]
+    C --> C2["Start Date"]
+    C --> C3["End Date"]
+    C --> C4["Country"]
+    C --> C5["Location"]
 
-    %% Manpower requirements allowed by the contract.
-    B --> D[Manpower Terms]
-    D --> D1[Position]
-    D --> D2[Required Quantity]
-    D --> D3[Working Hours]
-    D --> D4[Contract Duration]
+    B --> D["Manpower Terms"]
+    D --> D1["Position"]
+    D --> D2["Required Quantity"]
+    D --> D3["Working Hours"]
+    D --> D4["Contract Duration"]
 
-    %% Commercial terms used for billing.
-    B --> E[Commercial Terms]
-    E --> E1[Billing Rate]
-    E --> E2[Currency]
-    E --> E3[Payment Terms]
+    B --> E["Commercial Terms"]
+    E --> E1["Billing Rate"]
+    E --> E2["Currency"]
+    E --> E3["Payment Terms"]
 
-    %% Client demand is created against the contract.
-    B --> F[JDR]
+    B --> F["JDR"]
 ```
 
 ---
 
-# 4. JDR — Job Demand Request
+# 5. JDR — Job Demand Request
 
 ## Definition
 
-The **JDR** is the central manpower-demand document.
+The **JDR** is the main manpower-demand record. It captures what the overseas client needs and starts the recruitment process.
 
-It represents a client's request for workers and starts the recruitment process.
+## Simple Business Flow
 
-One JDR can contain multiple positions.
-
-Example:
-
-- 50 Electricians
-- 20 Welders
-- 10 Plumbers
+```text
+Client Contract
+ ↓
+JDR
+ ↓
+Manpower Requirement
+ ↓
+Approval
+ ↓
+Recruitment
+```
 
 ## Mermaid
 
 ```mermaid
 flowchart TD
     %% =========================================================
-    %% JDR - JOB DEMAND REQUEST
-    %% Central recruitment-demand object.
+    %% JDR
+    %% Client manpower demand.
     %% =========================================================
 
-    A[Client Contract] --> B[JDR]
+    A["Client Contract"]
+    A --> B["JDR"]
 
-    %% Basic JDR information.
-    B --> C[JDR Information]
-    C --> C1[JDR Number]
-    C --> C2[Client]
-    C --> C3[Country]
-    C --> C4[Location]
-    C --> C5[Required By]
-    C --> C6[Priority]
+    B --> C["JDR Information"]
+    C --> C1["JDR Number"]
+    C --> C2["Client"]
+    C --> C3["Country"]
+    C --> C4["Location"]
+    C --> C5["Required By"]
+    C --> C6["Priority"]
 
-    %% A JDR can contain many manpower positions.
-    B --> D[Manpower Requirements]
-    D --> D1[Position]
-    D --> D2[Required Quantity]
-    D --> D3[Experience]
-    D --> D4[Qualification]
-    D --> D5[Salary]
-    D --> D6[Benefits]
+    B --> D["Manpower Requirements"]
+    D --> D1["Position"]
+    D --> D2["Required Quantity"]
+    D --> D3["Experience"]
+    D --> D4["Qualification"]
+    D --> D5["Salary"]
+    D --> D6["Benefits"]
 
-    %% JDR lifecycle.
-    B --> S[Status]
-
-    S --> S1[Draft]
-    S --> S2[Submitted]
-    S --> S3[Approved]
-    S --> S4[Recruitment]
-    S --> S5[Selection]
-    S --> S6[Documentation]
-    S --> S7[Ready for Deployment]
-    S --> S8[Closed]
-
-    %% Recruitment is initiated from the JDR.
-    B --> E[Recruitment]
+    B --> E{"JDR Approved?"}
+    E -->|No| F["Draft / Correction"]
+    F --> B
+    E -->|Yes| G["Recruitment"]
 ```
 
 ---
 
-5. Overseas Recruitment
-Definition
+# 6. Overseas Recruitment
 
-The Overseas Recruitment module manages the process of selecting candidates for overseas client requirements, from sourcing and screening to client approval, documentation, medical/visa processing, and deployment readiness.
+## Definition
+
+The **Overseas Recruitment** module manages the process of selecting candidates for overseas client requirements, from sourcing and screening to client approval, documentation, medical/visa processing, and deployment readiness.
+
+## Simple Business Flow
+
+```text
+Approved JDR
+ ↓
+Candidate Sourcing
+ ↓
+Screening
+ ↓
+Document Verification
+ ↓
+Interview / Trade Test
+ ↓
+Client Selection
+ ↓
+Offer & Contract
+ ↓
+Medical & Compliance
+ ↓
+Visa Processing
+ ↓
+Deployment Ready
+ ↓
+Employee
+ ↓
+Deployment
+```
 
 ## Mermaid
 
@@ -301,336 +325,69 @@ The Overseas Recruitment module manages the process of selecting candidates for 
 flowchart TD
     %% =========================================================
     %% OVERSEAS RECRUITMENT
-    %% Candidate lifecycle for overseas manpower recruitment.
+    %% Candidate lifecycle for overseas manpower.
     %% =========================================================
 
     A["Approved JDR"]
-        --> B["Candidate Sourcing"]
-
-    %% Basic candidate eligibility check.
+    A --> B["Candidate Sourcing"]
     B --> C["Screening"]
 
-    %% Verify required candidate documents.
-    C --> D["Document Verification"]
+    C --> D{"Eligible?"}
+    D -->|No| X["Rejected / Hold"]
+    D -->|Yes| E["Document Verification"]
 
-    %% Interview and technical/trade assessment.
-    D --> E["Interview / Trade Test"]
+    E --> F{"Documents Valid?"}
+    F -->|No| G["Document Correction"]
+    G --> E
+    F -->|Yes| H["Interview / Trade Test"]
 
-    %% Client reviews shortlisted candidates.
-    E --> F["Client Selection"]
+    H --> I{"Passed?"}
+    I -->|No| X
+    I -->|Yes| J["Client Selection"]
 
-    %% Selected candidate receives employment terms.
-    F --> G["Offer & Contract"]
+    J --> K{"Selected by Client?"}
+    K -->|No| X
+    K -->|Yes| L["Offer & Contract"]
 
-    %% Overseas compliance checks.
-    G --> H["Medical & Compliance"]
+    L --> M{"Offer Accepted?"}
+    M -->|No| X
+    M -->|Yes| N["Medical & Compliance"]
 
-    %% Visa / work authorization process.
-    H --> I["Visa Processing"]
+    N --> O{"Cleared?"}
+    O -->|No| P["Hold / Action Required"]
+    O -->|Yes| Q["Visa Processing"]
 
-    %% Candidate is prepared for overseas movement.
-    I --> J["Deployment Ready"]
+    Q --> R{"Visa Approved?"}
+    R -->|No| S["Visa Hold"]
+    R -->|Yes| T["Deployment Ready"]
 
-    %% Successful candidate becomes an employee.
-    J --> K["Employee Master"]
-
-    %% Employee moves to deployment.
-    K --> L["Deployment"]
-
-    %% Recruitment can end at different points.
-    C -.-> X["Rejected / Hold"]
-    D -.-> X
-    E -.-> X
-    F -.-> X
-    H -.-> X
-    I -.-> X
+    T --> U["Employee Master"]
+    U --> V["Deployment"]
 ```
 
 ---
 
-# 6. Employee Documents
+# 7. Employee Master
 
 ## Definition
 
-The **Employee Documents** layer manages identity, immigration, medical, insurance, qualification, and employment documents.
+The **Employee Master** is the central HR record created after a candidate successfully completes recruitment.
 
-Each document can have an issue date, expiry date, attachment, and verification status.
+## Simple Business Flow
 
-## Mermaid
-
-```mermaid
-flowchart TD
-    %% =========================================================
-    %% EMPLOYEE DOCUMENTS
-    %% Common document management layer.
-    %% =========================================================
-
-    A[Employee] --> B[Employee Documents]
-
-    B --> C[Passport]
-    B --> D[Iqama]
-    B --> E[Visa]
-    B --> F[Medical]
-    B --> G[Insurance]
-    B --> H[Certificate]
-    B --> I[Employment Contract]
-
-    %% Common document metadata.
-    C --> C1[Document Number]
-    C --> C2[Issue Date]
-    C --> C3[Expiry Date]
-    C --> C4[Attachment]
-    C --> C5[Verification Status]
-
-    %% Specialized Iqama data.
-    D --> D1[Iqama Number]
-    D --> D2[Issue Date]
-    D --> D3[Expiry Date]
-    D --> D4[Profession]
-    D --> D5[Sponsor]
-    D --> D6[Attachment]
-
-    %% Specialized Visa data.
-    E --> E1[Visa Number]
-    E --> E2[Visa Type]
-    E --> E3[Issue Date]
-    E --> E4[Expiry Date]
-    E --> E5[Attachment]
+```text
+Selected Candidate
+ ↓
+Employee Master
+ ↓
+Personal Information
+ ↓
+Employment Information
+ ↓
+Overseas Information
+ ↓
+Documents / Contract / Deployment
 ```
-
----
-
-# 7. Passport
-
-## Definition
-
-The **Passport** module tracks passport identity information, validity, scanned documents, and renewal requirements.
-
-## Mermaid
-
-```mermaid
-flowchart TD
-    %% =========================================================
-    %% PASSPORT
-    %% Employee passport lifecycle.
-    %% =========================================================
-
-    A[Employee] --> B[Passport]
-
-    %% Passport identity data.
-    B --> C[Passport Details]
-    C --> C1[Passport Number]
-    C --> C2[Nationality]
-    C --> C3[Issue Date]
-    C --> C4[Expiry Date]
-    C --> C5[Place of Issue]
-
-    %% Stored passport files.
-    B --> D[Passport Document]
-    D --> D1[Passport Scan]
-    D --> D2[Photo]
-    D --> D3[Supporting Documents]
-
-    %% Expiry monitoring.
-    B --> E[Expiry Monitoring]
-    E --> E1[90 Days]
-    E --> E2[60 Days]
-    E --> E3[30 Days]
-    E --> E4[7 Days]
-    E --> E5[Expired]
-
-    %% Expired passport triggers renewal.
-    E5 --> F[Renewal Process]
-    F --> B
-```
-
----
-# 8. Visa
-
-## Definition
-
-The **Visa** module tracks visa details, supporting documents, processing stages, approval/rejection, and expiry.
-
-## Mermaid
-
-```mermaid
-flowchart TD
-    %% =========================================================
-    %% VISA
-    %% Immigration/visa processing lifecycle.
-    %% =========================================================
-
-    A[Employee] --> B[Visa]
-
-    %% Visa identity and validity.
-    B --> C[Visa Details]
-    C --> C1[Visa Number]
-    C --> C2[Visa Type]
-    C --> C3[Country]
-    C --> C4[Issue Date]
-    C --> C5[Expiry Date]
-
-    %% Supporting files.
-    B --> D[Documents]
-    D --> D1[Passport]
-    D --> D2[Employment Contract]
-    D --> D3[Medical]
-    D --> D4[Other Supporting Documents]
-
-    %% Processing workflow.
-    B --> E[Processing]
-    E --> E1[Application]
-    E --> E2[Submitted]
-    E --> E3[Processing]
-    E --> E4[Approved]
-    E --> E5[Rejected]
-
-    %% Expiry action.
-    B --> F[Expiry]
-    F --> F1[Expiry Alert]
-    F1 --> F2[Renewal / Action]
-```
-
----
-# 9. Iqama
-
-## Definition
-
-The **Iqama** module manages an employee's Saudi residence/work-permit record, related documents, verification, expiry monitoring, and renewal lifecycle.
-
-> **Important:** The actual legal document checklist should be configurable according to the company's current Saudi process and the employee's case. Do not hard-code a universal legal checklist.
-
-## Mermaid
-
-```mermaid
-flowchart TD
-    %% =========================================================
-    %% IQAMA
-    %% Saudi employee residence/work-permit lifecycle.
-    %% =========================================================
-
-    A[Employee] --> B[Iqama Record]
-
-    %% Core Iqama information.
-    B --> C[Iqama Details]
-    C --> C1[Iqama Number]
-    C --> C2[Iqama Type]
-    C --> C3[Profession]
-    C --> C4[Sponsor]
-    C --> C5[Issue Date]
-    C --> C6[Expiry Date]
-    C --> C7[Place of Issue]
-
-    %% Supporting document checklist.
-    B --> D[Required Documents]
-    D --> D1[Passport]
-    D --> D2[Visa]
-    D --> D3[Medical]
-    D --> D4[Insurance]
-    D --> D5[Employment Contract]
-    D --> D6[Photograph]
-    D --> D7[Other Documents]
-
-    %% Every required document must pass verification.
-    D1 --> E[Verification]
-    D2 --> E
-    D3 --> E
-    D4 --> E
-    D5 --> E
-
-    E --> E1[Uploaded]
-    E --> E2[Under Review]
-    E --> E3[Verified]
-    E --> E4[Rejected]
-
-    %% Iqama operational status.
-    B --> S{Iqama Status}
-    S --> S1[Active]
-    S --> S2[Expiring Soon]
-    S --> S3[Expired]
-    S --> S4[Renewal in Progress]
-    S --> S5[Renewed]
-
-    %% Expiry monitoring thresholds.
-    B --> G[Expiry Monitoring]
-    G --> G1[90 Days]
-    G --> G2[60 Days]
-    G --> G3[30 Days]
-    G --> G4[7 Days]
-    G --> G5[Expired]
-
-    %% Expiry triggers renewal.
-    G5 --> F[Renewal]
-
-    %% Renewal lifecycle.
-    F --> F1[Start Renewal]
-    F1 --> F2[Collect Documents]
-    F2 --> F3[Verify Documents]
-    F3 --> F4[Submit]
-    F4 --> F5[Processing]
-    F5 --> F6[Approved]
-    F6 --> F7[New Iqama]
-
-    %% New record/version becomes active.
-    F7 --> B
-```
----
-
-# 10. Employee Contract
-
-## Definition
-
-The **Employee Contract** represents the employment agreement between the company and the employee.
-
-It is different from the Client Contract.
-
-## Mermaid
-
-```mermaid
-flowchart TD
-    %% =========================================================
-    %% EMPLOYEE CONTRACT
-    %% Employment relationship with the worker.
-    %% =========================================================
-
-    A[Employee] --> B[Employee Contract]
-
-    %% Employment terms.
-    B --> C[Employment Terms]
-    C --> C1[Contract Number]
-    C --> C2[Start Date]
-    C --> C3[End Date]
-    C --> C4[Employment Type]
-    C --> C5[Working Hours]
-
-    %% Compensation.
-    B --> D[Compensation]
-    D --> D1[Basic Salary]
-    D --> D2[Allowances]
-    D --> D3[Benefits]
-    D --> D4[Currency]
-
-    %% Overseas assignment.
-    B --> E[Assignment]
-    E --> E1[Client]
-    E --> E2[Country]
-    E --> E3[Position]
-    E --> E4[Project / Site]
-
-    %% Contract lifecycle.
-    B --> F[Expiry Monitoring]
-    F --> G[Renewal]
-```
-
----
-
-# 11. Employee Master
-
-## Definition
-
-The **Employee Master** is the central HR record for a worker after recruitment/selection.
-
-It should hold core employee information while linking specialized records such as Passport, Iqama, Visa, Contract, and Deployment.
 
 ## Mermaid
 
@@ -638,54 +395,369 @@ It should hold core employee information while linking specialized records such 
 flowchart TD
     %% =========================================================
     %% EMPLOYEE MASTER
-    %% Central employee record.
+    %% Central employee HR record.
     %% =========================================================
 
-    A[Selected Candidate] --> B[Employee Master]
+    A["Selected Candidate"]
+    A --> B["Employee Master"]
 
-    %% Personal information.
-    B --> C[Personal Information]
-    C --> C1[Name]
-    C --> C2[Date of Birth]
-    C --> C3[Nationality]
-    C --> C4[Contact]
-    C --> C5[Address]
+    B --> C["Personal Information"]
+    C --> C1["Name"]
+    C --> C2["Date of Birth"]
+    C --> C3["Nationality"]
+    C --> C4["Contact"]
+    C --> C5["Address"]
 
-    %% Internal employment information.
-    B --> D[Employment Information]
-    D --> D1[Employee ID]
-    D --> D2[Department]
-    D --> D3[Designation]
-    D --> D4[Joining Date]
-    D --> D5[Employment Type]
+    B --> D["Employment Information"]
+    D --> D1["Employee ID"]
+    D --> D2["Department"]
+    D --> D3["Designation"]
+    D --> D4["Joining Date"]
+    D --> D5["Employment Type"]
 
-    %% Overseas assignment information.
-    B --> E[Overseas Information]
-    E --> E1[Country]
-    E --> E2[Client]
-    E --> E3[Deployment Status]
-    E --> E4[Current Location]
+    B --> E["Overseas Information"]
+    E --> E1["Country"]
+    E --> E2["Client"]
+    E --> E3["Deployment Status"]
+    E --> E4["Current Location"]
 
-    %% Related employee records.
-    B --> F[Documents]
-    F --> F1[Passport]
-    F --> F2[Iqama]
-    F --> F3[Visa]
-    F --> F4[Medical]
-    F --> F5[Insurance]
-
-    B --> G[Contracts]
-    B --> H[Deployment]
+    B --> F["Employee Documents"]
+    B --> G["Employee Contract"]
+    B --> H["Deployment"]
 ```
 
+---
 
-# 12. Deployment
+# 8. Employee Documents
 
 ## Definition
 
-The **Deployment** module records where, when, and under which client/project an employee is deployed.
+The **Employee Documents** module stores and verifies documents required for employee identity, overseas employment, immigration, medical, insurance, and compliance.
 
-It connects the JDR, employee, client, project/site, travel, and joining process.
+## Simple Business Flow
+
+```text
+Employee
+ ↓
+Documents
+ ↓
+Upload
+ ↓
+Verify
+ ↓
+Valid / Rejected
+ ↓
+Expiry Monitoring
+```
+
+## Mermaid
+
+```mermaid
+flowchart TD
+    %% =========================================================
+    %% EMPLOYEE DOCUMENTS
+    %% Document collection and verification.
+    %% =========================================================
+
+    A["Employee"]
+    A --> B["Employee Documents"]
+
+    B --> C["Passport"]
+    B --> D["Iqama"]
+    B --> E["Visa"]
+    B --> F["Medical"]
+    B --> G["Insurance"]
+    B --> H["Certificates"]
+    B --> I["Employment Contract"]
+
+    C --> J{"Documents Verified?"}
+    D --> J
+    E --> J
+    F --> J
+    G --> J
+
+    J -->|No| K["Correction / Re-upload"]
+    K --> B
+
+    J -->|Yes| L["Verified Documents"]
+    L --> M["Expiry Monitoring"]
+```
+
+---
+
+# 9. Passport
+
+## Definition
+
+The **Passport** module tracks passport identity information, validity, scanned documents, and renewal status.
+
+## Simple Business Flow
+
+```text
+Employee
+ ↓
+Passport
+ ↓
+Passport Details
+ ↓
+Expiry Monitoring
+ ↓
+Renewal if Required
+```
+
+## Mermaid
+
+```mermaid
+flowchart TD
+    %% =========================================================
+    %% PASSPORT
+    %% Passport validity and renewal.
+    %% =========================================================
+
+    A["Employee"]
+    A --> B["Passport"]
+
+    B --> C["Passport Details"]
+    C --> C1["Passport Number"]
+    C --> C2["Nationality"]
+    C --> C3["Issue Date"]
+    C --> C4["Expiry Date"]
+    C --> C5["Place of Issue"]
+
+    B --> D["Passport Scan"]
+    B --> E["Expiry Monitoring"]
+
+    E --> F{"Expired / Expiring?"}
+    F -->|No| G["Valid"]
+    F -->|Yes| H["Renewal Process"]
+
+    H --> I["New Passport"]
+    I --> B
+```
+
+---
+
+# 10. Iqama
+
+## Definition
+
+The **Iqama** module manages the employee's Saudi residence/work-permit record, supporting documents, verification, expiry, and renewal.
+
+## Simple Business Flow
+
+```text
+Employee
+ ↓
+Iqama Record
+ ↓
+Documents
+ ↓
+Verification
+ ↓
+Active
+ ↓
+Expiry Alert
+ ↓
+Renewal
+ ↓
+New Iqama
+```
+
+## Mermaid
+
+```mermaid
+flowchart TD
+    %% =========================================================
+    %% IQAMA
+    %% Saudi residence/work-permit lifecycle.
+    %% =========================================================
+
+    A["Employee"]
+    A --> B["Iqama Record"]
+
+    B --> C["Iqama Details"]
+    C --> C1["Iqama Number"]
+    C --> C2["Iqama Type"]
+    C --> C3["Profession"]
+    C --> C4["Sponsor"]
+    C --> C5["Issue Date"]
+    C --> C6["Expiry Date"]
+
+    B --> D["Required Documents"]
+    D --> D1["Passport"]
+    D --> D2["Visa"]
+    D --> D3["Medical"]
+    D --> D4["Insurance"]
+    D --> D5["Employment Contract"]
+
+    D --> E{"Documents Verified?"}
+    E -->|No| F["Correction / Re-upload"]
+    F --> D
+    E -->|Yes| G["Iqama Active"]
+
+    G --> H["Expiry Monitoring"]
+    H --> I{"Expiring?"}
+
+    I -->|No| J["Continue Active"]
+    I -->|Yes| K["Renewal Process"]
+
+    K --> L["Collect Documents"]
+    L --> M["Submit Renewal"]
+    M --> N{"Approved?"}
+
+    N -->|No| O["Follow Up / Correction"]
+    O --> M
+    N -->|Yes| P["New Iqama"]
+
+    P --> B
+```
+
+---
+
+# 11. Visa
+
+## Definition
+
+The **Visa** module manages overseas visa information, supporting documents, processing, approval, rejection, and expiry.
+
+## Simple Business Flow
+
+```text
+Employee
+ ↓
+Visa Application
+ ↓
+Documents
+ ↓
+Processing
+ ↓
+Approval
+ ↓
+Visa Active
+```
+
+## Mermaid
+
+```mermaid
+flowchart TD
+    %% =========================================================
+    %% VISA
+    %% Visa application and processing.
+    %% =========================================================
+
+    A["Employee"]
+    A --> B["Visa Application"]
+
+    B --> C["Visa Details"]
+    C --> C1["Visa Number"]
+    C --> C2["Visa Type"]
+    C --> C3["Country"]
+    C --> C4["Issue Date"]
+    C --> C5["Expiry Date"]
+
+    B --> D["Supporting Documents"]
+    D --> D1["Passport"]
+    D --> D2["Employment Contract"]
+    D --> D3["Medical"]
+
+    B --> E["Visa Processing"]
+    E --> F{"Visa Approved?"}
+
+    F -->|No| G["Rejected / Correction"]
+    G --> E
+
+    F -->|Yes| H["Visa Active"]
+    H --> I["Expiry Monitoring"]
+```
+
+---
+
+# 12. Employee Contract
+
+## Definition
+
+The **Employee Contract** represents the employment agreement between the company and the employee, including terms, compensation, assignment, and validity.
+
+## Simple Business Flow
+
+```text
+Employee
+ ↓
+Employment Contract
+ ↓
+Terms & Compensation
+ ↓
+Assignment
+ ↓
+Active Contract
+ ↓
+Expiry / Renewal
+```
+
+## Mermaid
+
+```mermaid
+flowchart TD
+    %% =========================================================
+    %% EMPLOYEE CONTRACT
+    %% Employment agreement.
+    %% =========================================================
+
+    A["Employee"]
+    A --> B["Employee Contract"]
+
+    B --> C["Employment Terms"]
+    C --> C1["Contract Number"]
+    C --> C2["Start Date"]
+    C --> C3["End Date"]
+    C --> C4["Employment Type"]
+    C --> C5["Working Hours"]
+
+    B --> D["Compensation"]
+    D --> D1["Basic Salary"]
+    D --> D2["Allowances"]
+    D --> D3["Benefits"]
+    D --> D4["Currency"]
+
+    B --> E["Assignment"]
+    E --> E1["Client"]
+    E --> E2["Country"]
+    E --> E3["Position"]
+    E --> E4["Project / Site"]
+
+    B --> F{"Contract Valid?"}
+    F -->|Yes| G["Active Contract"]
+    F -->|No| H["Renewal / New Contract"]
+    H --> B
+```
+
+---
+
+# 13. Deployment
+
+## Definition
+
+The **Deployment** module manages the movement and assignment of an employee to an overseas client, project, or site.
+
+## Simple Business Flow
+
+```text
+Employee
+ ↓
+Deployment Record
+ ↓
+Documentation
+ ↓
+Visa
+ ↓
+Travel
+ ↓
+Arrival
+ ↓
+Client Joining
+ ↓
+Deployed
+```
 
 ## Mermaid
 
@@ -693,87 +765,114 @@ It connects the JDR, employee, client, project/site, travel, and joining process
 flowchart TD
     %% =========================================================
     %% DEPLOYMENT
-    %% Employee assignment and overseas movement lifecycle.
+    %% Overseas employee deployment.
     %% =========================================================
 
-    A[JDR] --> B[Deployment]
-    C[Employee] --> B
-    D[Client] --> B
-    E[Client Site] --> B
+    A["Employee"]
+    A --> B["Deployment"]
 
-    %% Deployment master information.
-    B --> F[Deployment Details]
-    F --> F1[Employee]
-    F --> F2[Client]
-    F --> F3[JDR]
-    F --> F4[Position]
-    F --> F5[Project / Site]
-    F --> F6[Country]
-    F --> F7[Deployment Date]
+    B --> C["Deployment Details"]
+    C --> C1["Client"]
+    C --> C2["JDR"]
+    C --> C3["Position"]
+    C --> C4["Country"]
+    C --> C5["Project / Site"]
+    C --> C6["Deployment Date"]
 
-    %% Operational deployment workflow.
-    B --> G[Deployment Process]
-    G --> G1[Selected]
-    G --> G2[Documentation]
-    G --> G3[Visa Processing]
-    G --> G4[Visa Approved]
-    G --> G5[Travel Pending]
-    G --> G6[Travel Booked]
-    G --> G7[Departed]
-    G --> G8[Arrived]
-    G --> G9[Client Joined]
-    G --> G10[Deployed]
+    B --> D["Documentation"]
+    D --> E{"Ready for Travel?"}
 
-    %% Deployed employees enter operational management.
-    G10 --> H[Operations]
+    E -->|No| F["Pending Documents"]
+    F --> D
+
+    E -->|Yes| G["Travel Planning"]
+    G --> H["Travel Booked"]
+    H --> I["Departed"]
+    I --> J["Arrived"]
+
+    J --> K{"Joined Client?"}
+    K -->|No| L["Joining Pending"]
+    L --> J
+
+    K -->|Yes| M["Deployed"]
 ```
 
 ---
 
-# 13. Timesheet / Operations
+# 14. Timesheet / Operations
 
 ## Definition
 
-The **Operations** layer manages the employee after deployment, including attendance, leave, timesheets, working hours, activities, billing rates, and cost rates.
+The **Timesheet / Operations** module manages the employee's work activity after deployment, including attendance, leave, hours, and billable work.
+
+## Simple Business Flow
+
+```text
+Deployed Employee
+ ↓
+Client / Project
+ ↓
+Attendance / Leave
+ ↓
+Timesheet
+ ↓
+Working Hours
+ ↓
+Billing / Cost
+```
 
 ## Mermaid
 
 ```mermaid
 flowchart TD
     %% =========================================================
-    %% OPERATIONS
-    %% Post-deployment workforce activity.
+    %% TIMESHEET / OPERATIONS
+    %% Post-deployment operations.
     %% =========================================================
 
-    A[Deployed Employee] --> B[Client / Project]
-    B --> C[Timesheet]
+    A["Deployed Employee"]
+    A --> B["Client / Project"]
 
-    %% Timesheet data.
-    C --> D[Date]
-    C --> E[Working Hours]
-    C --> F[Activity]
-    C --> G[Billing Rate]
-    C --> H[Cost Rate]
-    C --> I[Billing Amount]
-    C --> J[Cost Amount]
+    B --> C["Attendance"]
+    B --> D["Leave"]
+    B --> E["Timesheet"]
 
-    %% Other HR operational records.
-    A --> K[Attendance]
-    A --> L[Leave]
+    E --> F["Date"]
+    E --> G["Working Hours"]
+    E --> H["Activity"]
+    E --> I["Billing Rate"]
+    E --> J["Cost Rate"]
 
-    %% Operational data feeds timesheet/costing.
-    K --> M[Working Data]
-    L --> M
-    M --> C
+    E --> K{"Timesheet Approved?"}
+    K -->|No| L["Correction"]
+    L --> E
+    K -->|Yes| M["Approved Timesheet"]
+
+    M --> N["Client Billing"]
+    M --> O["Employee Cost"]
 ```
 
 ---
 
-# 14. Employee Cost
+# 15. Employee Cost
 
 ## Definition
 
-The **Employee Cost** module calculates the actual cost of an employee to the company, including salary and deployment-related expenses.
+The **Employee Cost** module calculates the total cost associated with employing and deploying a worker.
+
+## Simple Business Flow
+
+```text
+Employee
+ ↓
+Salary + Benefits + Deployment Costs
+ ↓
+Total Employee Cost
+ ↓
+Client / JDR / Deployment
+ ↓
+Margin
+```
 
 ## Mermaid
 
@@ -781,23 +880,22 @@ The **Employee Cost** module calculates the actual cost of an employee to the co
 flowchart TD
     %% =========================================================
     %% EMPLOYEE COST
-    %% Direct and allocated employee/deployment costs.
+    %% Employee and deployment-related cost.
     %% =========================================================
 
-    A[Employee] --> B[Employee Cost]
+    A["Employee"]
+    A --> B["Employee Cost"]
 
-    %% Cost components.
-    B --> C[Salary]
-    B --> D[Accommodation]
-    B --> E[Transport]
-    B --> F[Insurance]
-    B --> G[Visa]
-    B --> H[Medical]
-    B --> I[Travel]
-    B --> J[Other Costs]
+    B --> C["Salary"]
+    B --> D["Accommodation"]
+    B --> E["Transport"]
+    B --> F["Insurance"]
+    B --> G["Visa"]
+    B --> H["Medical"]
+    B --> I["Travel"]
+    B --> J["Other Costs"]
 
-    %% Aggregate all employee-related costs.
-    C --> K[Total Employee Cost]
+    C --> K["Total Employee Cost"]
     D --> K
     E --> K
     F --> K
@@ -806,17 +904,30 @@ flowchart TD
     I --> K
     J --> K
 
-    %% Allocate cost to business context.
-    K --> L[Client / JDR / Deployment]
+    K --> L["Client / JDR / Deployment"]
 ```
 
 ---
 
-# 15. Vendor Cost
+# 16. Vendor Cost
 
 ## Definition
 
-The **Vendor Cost** module tracks money spent on external suppliers and links each cost to the relevant JDR, employee, or deployment.
+The **Vendor Cost** module tracks costs paid to external vendors such as recruitment agencies, medical providers, travel providers, and documentation service providers.
+
+## Simple Business Flow
+
+```text
+Vendor
+ ↓
+Vendor Cost
+ ↓
+Cost Category
+ ↓
+JDR / Employee / Deployment
+ ↓
+Total Vendor Cost
+```
 
 ## Mermaid
 
@@ -824,27 +935,25 @@ The **Vendor Cost** module tracks money spent on external suppliers and links ea
 flowchart TD
     %% =========================================================
     %% VENDOR COST
-    %% External supplier/recruitment costs.
+    %% External supplier costs.
     %% =========================================================
 
-    A[Vendor] --> B[Vendor Cost]
+    A["Vendor"]
+    A --> B["Vendor Cost"]
 
-    %% Cost categories.
-    B --> C[Recruitment]
-    B --> D[Visa]
-    B --> E[Medical]
-    B --> F[Travel]
-    B --> G[Documentation]
-    B --> H[Commission]
-    B --> I[Other]
+    B --> C["Recruitment"]
+    B --> D["Visa"]
+    B --> E["Medical"]
+    B --> F["Travel"]
+    B --> G["Documentation"]
+    B --> H["Commission"]
+    B --> I["Other"]
 
-    %% Traceability.
-    B --> J[JDR]
-    B --> K[Employee]
-    B --> L[Deployment]
+    B --> J["JDR"]
+    B --> K["Employee"]
+    B --> L["Deployment"]
 
-    %% Aggregate vendor costs.
-    C --> M[Total Vendor Cost]
+    C --> M["Total Vendor Cost"]
     D --> M
     E --> M
     F --> M
@@ -855,11 +964,25 @@ flowchart TD
 
 ---
 
-# 16. Client Billing
+# 17. Client Billing
 
 ## Definition
 
-The **Client Billing** module converts contractual rates, employee deployments, timesheets, and other billable items into invoices and recognized revenue.
+The **Client Billing** module converts client contract rates, deployments, timesheets, and other billable items into invoices and revenue.
+
+## Simple Business Flow
+
+```text
+Client Contract
+ ↓
+Deployment / Timesheet
+ ↓
+Billing
+ ↓
+Invoice
+ ↓
+Revenue
+```
 
 ## Mermaid
 
@@ -870,35 +993,53 @@ flowchart TD
     %% Revenue generation.
     %% =========================================================
 
-    A[Client Contract] --> B[Billing Terms]
-    C[Deployment] --> B
-    D[Timesheet] --> B
+    A["Client Contract"]
+    A --> B["Billing Terms"]
 
-    %% Billing record.
-    B --> E[Client Billing]
+    C["Deployment"] --> B
+    D["Timesheet"] --> B
 
-    %% Billable components.
-    E --> F[Employee Billing]
-    E --> G[Timesheet Billing]
-    E --> H[Fixed Charges]
-    E --> I[Other Charges]
+    B --> E["Client Billing"]
 
-    %% Standard accounting invoice.
-    F --> J[Invoice]
+    E --> F["Employee Billing"]
+    E --> G["Timesheet Billing"]
+    E --> H["Fixed Charges"]
+    E --> I["Other Charges"]
+
+    F --> J["Invoice"]
     G --> J
     H --> J
     I --> J
 
-    J --> K[Revenue]
+    J --> K{"Invoice Approved?"}
+    K -->|No| L["Correction"]
+    L --> E
+    K -->|Yes| M["Revenue"]
 ```
 
 ---
 
-# 17. Margin Reporting
+# 18. Margin Reporting
 
 ## Definition
 
-The **Margin Reporting** layer determines profitability by comparing client revenue with employee, vendor, and operational costs.
+The **Margin Reporting** module compares client revenue against employee, vendor, and other operational costs to determine profitability.
+
+## Simple Business Flow
+
+```text
+Revenue
+ ↓
+Total Revenue
+ ↓
+Minus Total Cost
+ ↓
+Gross Profit
+ ↓
+Margin %
+ ↓
+Client / JDR / Project / Country
+```
 
 ## Mermaid
 
@@ -906,46 +1047,50 @@ The **Margin Reporting** layer determines profitability by comparing client reve
 flowchart TD
     %% =========================================================
     %% MARGIN REPORTING
-    %% Profitability analysis.
+    %% Profitability calculation.
     %% =========================================================
 
-    A[Client Revenue] --> E[Total Revenue]
+    A["Client Revenue"] --> B["Total Revenue"]
 
-    B[Employee Cost] --> F[Total Cost]
-    C[Vendor Cost] --> F
-    D[Other Operational Cost] --> F
+    C["Employee Cost"] --> D["Total Cost"]
+    E["Vendor Cost"] --> D
+    F["Other Operational Cost"] --> D
 
-    %% Profit calculation.
-    E --> G[Gross Profit]
-    F --> G
+    B --> G["Gross Profit"]
+    D --> G
 
-    %% Percentage margin.
-    G --> H[Margin %]
+    G --> H["Margin %"]
 
-    %% Drill-down reporting dimensions.
-    H --> I[Client Margin]
-    H --> J[JDR Margin]
-    H --> K[Employee Margin]
-    H --> L[Project Margin]
-    H --> M[Country Margin]
+    H --> I["Client Margin"]
+    H --> J["JDR Margin"]
+    H --> K["Employee Margin"]
+    H --> L["Project Margin"]
+    H --> M["Country Margin"]
 
-    %% Management consumes the reports.
-    I --> N[Management Dashboard]
-    J --> N
-    K --> N
-    L --> N
-    M --> N
+    M --> N["Management Dashboard"]
 ```
 
 ---
 
-# 18. Expiry Management
+# 19. Expiry Management
 
 ## Definition
 
-The **Expiry Management** engine monitors dates for passports, Iqamas, visas, medical documents, insurance, contracts, and certifications.
+The **Expiry Management** module monitors employee documents and contracts and generates alerts before they expire.
 
-It generates warnings and starts renewal/action processes.
+## Simple Business Flow
+
+```text
+Employee Documents
+ ↓
+Expiry Engine
+ ↓
+Days Remaining
+ ↓
+Alert
+ ↓
+Renewal / Action
+```
 
 ## Mermaid
 
@@ -953,48 +1098,63 @@ It generates warnings and starts renewal/action processes.
 flowchart TD
     %% =========================================================
     %% EXPIRY MANAGEMENT
-    %% Centralized expiry and alert engine.
+    %% Centralized document expiry monitoring.
     %% =========================================================
 
-    A[Employee Documents] --> B[Expiry Engine]
+    A["Employee Documents"]
 
-    %% Documents monitored by the engine.
-    A1[Passport] --> A
-    A2[Iqama] --> A
-    A3[Visa] --> A
-    A4[Medical] --> A
-    A5[Insurance] --> A
-    A6[Contract] --> A
-    A7[Certification] --> A
+    A --> A1["Passport"]
+    A --> A2["Iqama"]
+    A --> A3["Visa"]
+    A --> A4["Medical"]
+    A --> A5["Insurance"]
+    A --> A6["Employee Contract"]
 
-    %% Determine the remaining validity.
-    B --> C{Days Remaining}
+    A1 --> B["Expiry Engine"]
+    A2 --> B
+    A3 --> B
+    A4 --> B
+    A5 --> B
+    A6 --> B
 
-    C -->|> 90 Days| D[Valid]
-    C -->|61 - 90| E[Monitor]
-    C -->|31 - 60| F[Warning]
-    C -->|8 - 30| G[Urgent]
-    C -->|1 - 7| H[Critical]
-    C -->|< 0| I[Expired]
+    B --> C{"Days Remaining"}
 
-    %% Notifications.
-    F --> J[HR Alert]
+    C -->|More than 90| D["Valid"]
+    C -->|61 - 90| E["Monitor"]
+    C -->|31 - 60| F["Warning"]
+    C -->|8 - 30| G["Urgent"]
+    C -->|1 - 7| H["Critical"]
+    C -->|Expired| I["Expired"]
+
+    E --> J["HR Alert"]
+    F --> J
     G --> J
-    H --> K[Management Alert]
+    H --> K["Management Alert"]
     I --> K
 
-    %% Renewal/action workflow.
-    J --> L[Renewal Process]
+    J --> L["Renewal / Action"]
     K --> L
 ```
 
 ---
 
-# 19. Management Dashboard
+# 20. Management Dashboard
 
 ## Definition
 
-The **Management Dashboard** is the final reporting layer. It gives management a consolidated view of manpower, recruitment, deployment, document expiry, revenue, cost, and profitability.
+The **Management Dashboard** provides management with a consolidated view of recruitment, employees, deployment, document expiry, revenue, costs, and margins.
+
+## Simple Business Flow
+
+```text
+ERP Data
+ ↓
+KPIs
+ ↓
+Dashboard
+ ↓
+Management Decisions
+```
 
 ## Mermaid
 
@@ -1002,325 +1162,457 @@ The **Management Dashboard** is the final reporting layer. It gives management a
 flowchart TD
     %% =========================================================
     %% MANAGEMENT DASHBOARD
-    %% Executive reporting layer.
+    %% Executive reporting.
     %% =========================================================
 
-    A[Management Dashboard]
+    A["ERP Data"]
+    A --> B["Management Dashboard"]
 
-    %% Organization KPIs.
-    A --> B[Organization]
-    B --> B1[Branches]
-    B --> B2[Departments]
-    B --> B3[Users]
+    B --> C["Recruitment"]
+    C --> C1["Open JDRs"]
+    C --> C2["Candidates"]
+    C --> C3["Selected"]
+    C --> C4["Pending"]
 
-    %% Recruitment KPIs.
-    A --> C[Recruitment]
-    C --> C1[Open JDRs]
-    C --> C2[Candidates]
-    C --> C3[Selected]
-    C --> C4[Pending Recruitment]
+    B --> D["Employees"]
+    D --> D1["Total"]
+    D --> D2["Deployed"]
+    D --> D3["Available"]
+    D --> D4["Processing"]
 
-    %% Employee KPIs.
-    A --> D[Employees]
-    D --> D1[Total Employees]
-    D --> D2[Deployed]
-    D --> D3[Available]
-    D --> D4[Under Processing]
+    B --> E["Deployment"]
+    E --> E1["Visa Processing"]
+    E --> E2["Travel Pending"]
+    E --> E3["Ready"]
+    E --> E4["Deployed"]
 
-    %% Deployment KPIs.
-    A --> E[Deployment]
-    E --> E1[Visa Processing]
-    E --> E2[Travel Pending]
-    E --> E3[Ready]
-    E --> E4[Deployed]
+    B --> F["Document Alerts"]
+    F --> F1["Passport"]
+    F --> F2["Iqama"]
+    F --> F3["Visa"]
+    F --> F4["Contract"]
 
-    %% Document expiry KPIs.
-    A --> F[Documents]
-    F --> F1[Passport Expiry]
-    F --> F2[Iqama Expiry]
-    F --> F3[Visa Expiry]
-    F --> F4[Contract Expiry]
-
-    %% Commercial KPIs.
-    A --> G[Commercial]
-    G --> G1[Revenue]
-    G --> G2[Employee Cost]
-    G --> G3[Vendor Cost]
-    G --> G4[Gross Profit]
-    G --> G5[Margin %]
+    B --> G["Commercial"]
+    G --> G1["Revenue"]
+    G --> G2["Employee Cost"]
+    G --> G3["Vendor Cost"]
+    G --> G4["Gross Profit"]
+    G --> G5["Margin %"]
 ```
 
 ---
 
-# 20. Complete System Architecture
+# 21. Complete System Architecture
 
 ## Definition
 
-This is the **master architecture**. It shows how the entire system is connected from organization setup to recruitment, employee management, immigration documents, deployment, operations, costing, billing, expiry alerts, and management reporting.
+The **Complete System Architecture** shows how the major modules connect from the initial client requirement through recruitment, HR, documentation, deployment, operations, costing, billing, alerts, and management reporting.
+
+## Simple Business Flow
+
+```text
+Organization
+ ↓
+Client
+ ↓
+Contract
+ ↓
+JDR
+ ↓
+Recruitment
+ ↓
+Employee
+ ↓
+Documents
+ ↓
+Deployment
+ ↓
+Operations
+ ↓
+Cost / Billing
+ ↓
+Margin
+ ↓
+Dashboard
+```
 
 ## Mermaid
 
 ```mermaid
 flowchart TD
     %% =========================================================
-    %% COMPLETE OVERSEAS MANPOWER ERP ARCHITECTURE
+    %% COMPLETE OVERSEAS MANPOWER ERP
     %% =========================================================
 
-    %% ---------------- FOUNDATION ----------------
-    A[ORGANIZATION] --> B[USERS & ROLES]
-    B --> C[CLIENTS & VENDORS]
+    A["Organization"]
+    A --> B["Users & Roles"]
+    B --> C["Clients & Vendors"]
+    C --> D["Client Contract"]
+    D --> E["JDR"]
 
-    %% ---------------- COMMERCIAL FOUNDATION ----------------
-    C --> D[CLIENT CONTRACT]
+    E --> F["Overseas Recruitment"]
+    F --> G["Employee Master"]
 
-    %% ---------------- RECRUITMENT ----------------
-    D --> E[JDR]
-    E --> F[JOB OPENING]
-    F --> G[CANDIDATE]
-    G --> H[SCREENING]
-    H --> I[INTERVIEW]
-    I --> J[SELECTION]
-    J --> K[JOB OFFER]
+    G --> H["Employee Documents"]
+    H --> H1["Passport"]
+    H --> H2["Iqama"]
+    H --> H3["Visa"]
+    H --> H4["Medical"]
+    H --> H5["Insurance"]
 
-    %% ---------------- EMPLOYEE ----------------
-    K --> L[EMPLOYEE MASTER]
+    G --> I["Employee Contract"]
+    G --> J["Deployment"]
 
-    %% ---------------- DOCUMENTS ----------------
-    L --> M[EMPLOYEE DOCUMENTS]
-    M --> M1[PASSPORT]
-    M --> M2[IQAMA]
-    M --> M3[VISA]
-    M --> M4[MEDICAL]
-    M --> M5[INSURANCE]
+    J --> K["Client / Project / Site"]
+    K --> L["Timesheet / Operations"]
 
-    %% ---------------- EMPLOYMENT ----------------
-    L --> N[EMPLOYEE CONTRACT]
+    G --> M["Employee Cost"]
+    C --> N["Vendor Cost"]
 
-    %% ---------------- DEPLOYMENT ----------------
-    L --> O[DEPLOYMENT]
-    E --> O
-    C --> O
+    L --> O["Client Billing"]
+    J --> O
+    I --> O
 
-    O --> P[CLIENT / PROJECT / SITE]
+    M --> P["Margin"]
+    N --> P
+    O --> P
 
-    %% ---------------- OPERATIONS ----------------
-    P --> Q[ATTENDANCE]
-    P --> R[TIMESHEET]
+    H --> Q["Expiry Management"]
+    I --> Q
 
-    %% ---------------- COSTING ----------------
-    L --> S[EMPLOYEE COST]
-    C --> T[VENDOR COST]
-
-    %% ---------------- BILLING ----------------
-    R --> U[CLIENT BILLING]
-    N --> U
-    O --> U
-
-    %% ---------------- PROFITABILITY ----------------
-    S --> V[MARGIN]
-    T --> V
-    U --> V
-
-    %% ---------------- EXPIRY ----------------
-    M1 --> W[EXPIRY ENGINE]
-    M2 --> W
-    M3 --> W
-    M4 --> W
-    M5 --> W
-    N --> W
-
-    W --> X[RENEWAL / ALERTS]
-
-    %% ---------------- MANAGEMENT ----------------
-    V --> Y[MANAGEMENT DASHBOARD]
-    W --> Y
-    E --> Y
-    G --> Y
-    O --> Y
+    P --> R["Management Dashboard"]
+    Q --> R
+    F --> R
+    J --> R
 ```
 
 ---
 
-# 21. Recommended Implementation Order
+# 22. Recommended Implementation Order
 
 ## Definition
 
-This diagram shows the order in which the ERP should be implemented. The sequence follows data dependencies.
+The **Implementation Order** shows which modules should be built first based on their data dependencies.
 
-For example, Iqama depends on Employee, Employee depends on Recruitment, and Recruitment depends on JDR.
+## Simple Business Flow
+
+```text
+Foundation
+ ↓
+Masters
+ ↓
+Recruitment
+ ↓
+Employee
+ ↓
+Documents
+ ↓
+Deployment
+ ↓
+Operations
+ ↓
+Commercial
+ ↓
+Alerts
+ ↓
+Dashboard
+```
 
 ## Mermaid
 
 ```mermaid
-flowchart LR
+flowchart TD
     %% =========================================================
     %% IMPLEMENTATION ORDER
-    %% Build according to data dependencies.
+    %% Build from foundation to reporting.
     %% =========================================================
 
-    A[1. Organization] --> B[2. Users & Roles]
-    B --> C[3. Clients & Vendors]
-    C --> D[4. Client Contracts]
-    D --> E[5. JDR]
-    E --> F[6. Recruitment]
-    F --> G[7. Employee Master]
-    G --> H[8. Employee Documents]
-    H --> I[9. Passport / Iqama / Visa]
-    I --> J[10. Employee Contract]
-    J --> K[11. Deployment]
-    K --> L[12. Timesheets / Operations]
-    L --> M[13. Costs]
-    M --> N[14. Billing / Margin]
-    N --> O[15. Expiry Alerts]
-    O --> P[16. Dashboards]
+    A["1. Organization"]
+    A --> B["2. Users & Roles"]
+    B --> C["3. Clients & Vendors"]
+    C --> D["4. Client Contract"]
+    D --> E["5. JDR"]
+    E --> F["6. Overseas Recruitment"]
+    F --> G["7. Employee Master"]
+    G --> H["8. Employee Documents"]
+    H --> I["9. Passport / Iqama / Visa"]
+    I --> J["10. Employee Contract"]
+    J --> K["11. Deployment"]
+    K --> L["12. Timesheet / Operations"]
+    L --> M["13. Employee / Vendor Cost"]
+    M --> N["14. Client Billing / Margin"]
+    N --> O["15. Expiry Management"]
+    O --> P["16. Management Dashboard"]
 ```
 
 ---
 
-# 22. Core Business Flow
+# 23. Core Business Flow
 
 ## Definition
 
-This is the shortest representation of the company's actual business process.
+The **Core Business Flow** represents the company's main business journey from receiving an overseas manpower requirement to generating revenue and monitoring employee documents.
+
+## Simple Business Flow
+
+```text
+Client
+ ↓
+Contract
+ ↓
+JDR
+ ↓
+Recruitment
+ ↓
+Employee
+ ↓
+Documentation
+ ↓
+Deployment
+ ↓
+Timesheet
+ ↓
+Billing
+ ↓
+Margin
+```
+
+## Mermaid
 
 ```mermaid
 flowchart TD
     %% =========================================================
     %% CORE BUSINESS FLOW
-    %% One client requirement through to profitability.
+    %% Main overseas manpower business process.
     %% =========================================================
 
-    A[CLIENT] --> B[CLIENT CONTRACT]
-    B --> C[JDR]
-    C --> D[RECRUITMENT]
-    D --> E[CANDIDATE]
-    E --> F[SELECTION]
-    F --> G[EMPLOYEE]
-    G --> H[DOCUMENTATION]
-    H --> I[IQAMA / VISA / PASSPORT]
-    I --> J[DEPLOYMENT]
-    J --> K[CLIENT / SITE]
-    K --> L[TIMESHEET]
-    L --> M[BILLING]
-    G --> N[EMPLOYEE COST]
-    K --> O[VENDOR COST]
-    M --> P[REVENUE]
-    N --> Q[TOTAL COST]
-    O --> Q
-    P --> R[PROFIT / MARGIN]
-    I --> S[EXPIRY MONITORING]
-    S --> T[RENEWAL / ALERT]
+    A["Client"]
+    A --> B["Client Contract"]
+    B --> C["JDR"]
+    C --> D["Overseas Recruitment"]
+    D --> E["Candidate"]
+
+    E --> F{"Selected?"}
+    F -->|No| G["Rejected / Hold"]
+    F -->|Yes| H["Employee"]
+
+    H --> I["Documentation"]
+    I --> J{"Ready for Deployment?"}
+
+    J -->|No| K["Pending Requirements"]
+    K --> I
+
+    J -->|Yes| L["Deployment"]
+    L --> M["Client / Site"]
+    M --> N["Timesheet"]
+
+    N --> O["Client Billing"]
+    H --> P["Employee Cost"]
+    M --> Q["Vendor Cost"]
+
+    O --> R["Revenue"]
+    P --> S["Total Cost"]
+    Q --> S
+
+    R --> T["Profit / Margin"]
 ```
 
 ---
 
-# 23. Key Data Relationships
+# 24. Key Data Relationships
 
 ## Definition
 
-These are the relationships that should exist between the main ERP records. They prevent the system from becoming a collection of disconnected forms.
+The **Key Data Relationships** show how the main records are connected. These links are important for traceability and reporting.
+
+## Simple Business Flow
+
+```text
+Client
+ ↓
+Contract
+ ↓
+JDR
+ ↓
+Candidate
+ ↓
+Employee
+ ↓
+Documents / Contract
+ ↓
+Deployment
+ ↓
+Operations
+ ↓
+Cost / Billing
+ ↓
+Margin
+```
+
+## Mermaid
 
 ```mermaid
 flowchart TD
     %% =========================================================
     %% KEY DATA RELATIONSHIPS
+    %% Main records and their relationships.
     %% =========================================================
 
-    CLIENT[Client] --> CONTRACT[Client Contract]
-    CONTRACT --> JDR[JDR]
+    A["Client"]
+    A --> B["Client Contract"]
+    B --> C["JDR"]
+    C --> D["Candidate"]
+    D --> E["Employee"]
 
-    JDR --> CANDIDATE[Candidate]
-    CANDIDATE --> EMPLOYEE[Employee]
+    E --> F["Passport"]
+    E --> G["Iqama"]
+    E --> H["Visa"]
+    E --> I["Medical"]
+    E --> J["Insurance"]
+    E --> K["Employee Contract"]
 
-    EMPLOYEE --> PASSPORT[Passport]
-    EMPLOYEE --> IQAMA[Iqama]
-    EMPLOYEE --> VISA[Visa]
-    EMPLOYEE --> MEDICAL[Medical]
-    EMPLOYEE --> INSURANCE[Insurance]
-    EMPLOYEE --> EMP_CONTRACT[Employee Contract]
+    C --> L["Deployment"]
+    E --> L
+    A --> L
 
-    JDR --> DEPLOYMENT[Deployment]
-    EMPLOYEE --> DEPLOYMENT
-    CLIENT --> DEPLOYMENT
+    L --> M["Client Project / Site"]
+    M --> N["Timesheet"]
 
-    DEPLOYMENT --> SITE[Client Project / Site]
+    E --> O["Employee Cost"]
+    A --> P["Vendor"]
+    P --> Q["Vendor Cost"]
 
-    SITE --> TIMESHEET[Timesheet]
-    EMPLOYEE --> EMP_COST[Employee Cost]
+    N --> R["Client Billing"]
+    L --> R
 
-    VENDOR[Vendor] --> VENDOR_COST[Vendor Cost]
-    VENDOR_COST --> JDR
-    VENDOR_COST --> EMPLOYEE
-    VENDOR_COST --> DEPLOYMENT
+    O --> S["Total Cost"]
+    Q --> S
 
-    CLIENT --> BILLING[Client Billing]
-    DEPLOYMENT --> BILLING
-    TIMESHEET --> BILLING
+    R --> T["Revenue"]
+    S --> U["Margin"]
+    T --> U
 
-    BILLING --> REVENUE[Revenue]
-    EMP_COST --> COST[Total Cost]
-    VENDOR_COST --> COST
+    F --> V["Expiry Management"]
+    G --> V
+    H --> V
+    I --> V
+    J --> V
+    K --> V
 
-    REVENUE --> MARGIN[Margin]
-    COST --> MARGIN
-
-    PASSPORT --> EXPIRY[Expiry Engine]
-    IQAMA --> EXPIRY
-    VISA --> EXPIRY
-    MEDICAL --> EXPIRY
-    INSURANCE --> EXPIRY
-    EMP_CONTRACT --> EXPIRY
-
-    EXPIRY --> ALERTS[Alerts / Renewal]
+    U --> W["Management Dashboard"]
+    V --> W
 ```
-
----
-
-# 24. Design Rules
-
-The following rules should be followed during implementation:
-
-1. **Use standard ERPNext/Frappe HR DocTypes where they already solve the problem.**
-2. **Create custom DocTypes only for business objects that ERPNext does not model correctly.**
-3. **JDR should be a major custom DocType.**
-4. **Deployment should be a major custom DocType.**
-5. **Iqama needs a specialized workflow because it has documents, verification, expiry, and renewal.**
-6. **Do not duplicate Customer, Supplier, Employee, Timesheet, Invoice, or accounting data unnecessarily.**
-7. **Use Link fields to connect records instead of manually typing names.**
-8. **Use child tables for repeating structures such as multiple positions in a JDR.**
-9. **Use Workflow for approval/status transitions rather than relying only on editable status fields.**
-10. **Keep historical records for documents such as Passport and Iqama instead of overwriting old records.**
-11. **Make expiry thresholds configurable.**
-12. **Build dashboards only after the underlying data is reliable.**
-13. **Test every phase before moving to the next dependency.**
 
 ---
 
 # 25. Final Dependency Chain
 
-```mermaid
-flowchart LR
-    %% =========================================================
-    %% FINAL DEPENDENCY CHAIN
-    %% =========================================================
+## Definition
 
-    A[Organization]
-    --> B[Users]
-    --> C[Client]
-    --> D[Client Contract]
-    --> E[JDR]
-    --> F[Candidate]
-    --> G[Employee]
-    --> H[Documents]
-    --> I[Iqama / Visa / Passport]
-    --> J[Employee Contract]
-    --> K[Deployment]
-    --> L[Timesheet]
-    --> M[Cost]
-    --> N[Billing]
-    --> O[Margin]
-    --> P[Expiry Alerts]
-    --> Q[Management Dashboard]
+The **Final Dependency Chain** is the shortest representation of the complete ERP dependency structure.
+
+## Simple Business Flow
+
+```text
+Organization
+ ↓
+Users
+ ↓
+Client
+ ↓
+Contract
+ ↓
+JDR
+ ↓
+Candidate
+ ↓
+Employee
+ ↓
+Documents
+ ↓
+Deployment
+ ↓
+Operations
+ ↓
+Cost
+ ↓
+Billing
+ ↓
+Margin
+ ↓
+Alerts
+ ↓
+Dashboard
 ```
 
-> **Core principle:** `Client → Contract → JDR → Candidate → Employee → Documents → Deployment → Operations → Cost → Billing → Margin → Alerts → Dashboard`.
+## Mermaid
+
+```mermaid
+flowchart TD
+    %% =========================================================
+    %% FINAL DEPENDENCY CHAIN
+    %% High-level system dependency.
+    %% =========================================================
+
+    A["Organization"]
+    A --> B["Users"]
+    B --> C["Client"]
+    C --> D["Client Contract"]
+    D --> E["JDR"]
+    E --> F["Candidate"]
+    F --> G["Employee"]
+    G --> H["Documents"]
+    H --> I["Iqama / Visa / Passport"]
+    I --> J["Employee Contract"]
+    J --> K["Deployment"]
+    K --> L["Timesheet / Operations"]
+    L --> M["Cost"]
+    M --> N["Billing"]
+    N --> O["Margin"]
+    O --> P["Expiry Alerts"]
+    P --> Q["Management Dashboard"]
+```
+
+---
+
+# Design Principle
+
+Every module follows the same documentation pattern:
+
+```text
+Definition
+     ↓
+Simple Business Flow
+     ↓
+Vertical Mermaid
+     ↓
+Decision / Yes-No Branches where required
+```
+
+The main system principle is:
+
+```text
+Client
+ ↓
+Contract
+ ↓
+JDR
+ ↓
+Overseas Recruitment
+ ↓
+Employee
+ ↓
+Documents
+ ↓
+Deployment
+ ↓
+Operations
+ ↓
+Cost + Billing
+ ↓
+Margin
+ ↓
+Expiry Alerts
+ ↓
+Management Dashboard
+```
