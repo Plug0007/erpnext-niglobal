@@ -79,7 +79,7 @@ The **Users & Roles** module controls who can access ERPNext and what each user 
 Permissions should follow actual responsibilities instead of giving everyone Administrator/System Manager access.
 
 ## Mermaid
-
+```
 flowchart TB
     %% =========================================================
     %% USERS & ROLES
